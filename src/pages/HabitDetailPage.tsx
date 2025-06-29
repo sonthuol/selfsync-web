@@ -12,7 +12,7 @@ const { Title, Text, Paragraph } = Typography;
 const HabitDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { habits, updateHabit, deleteHabit } = useHabits();
+  const { habits, loading, updateHabit, deleteHabit } = useHabits();
   const [habit, setHabit] = useState<Habit | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -32,11 +32,17 @@ const HabitDetailPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (id && habits) {
-      const foundHabit = habits.find(h => h.id === id);
+    if (id && habits && habits.length > 0) {
+      const foundHabit = habits.find(h => String(h.id) === String(id));
       setHabit(foundHabit || null);
     }
   }, [id, habits]);
+
+  if (loading) {
+    return (
+      <div style={{ color: '#fff', textAlign: 'center', marginTop: 40 }}>Đang tải...</div>
+    );
+  }
 
   if (!habit) {
     return (
@@ -111,7 +117,11 @@ const HabitDetailPage: React.FC = () => {
 
   const handleUpdateHabit = (values: { name: string; description?: string }) => {
     if (editingHabit) {
-      updateHabit(editingHabit.id, values);
+      const updatedHabit = {
+        ...editingHabit,
+        ...values,
+      };
+      updateHabit(editingHabit.id, updatedHabit);
       setIsEditModalVisible(false);
       setEditingHabit(undefined);
       message.success('Cập nhật thói quen thành công!');
