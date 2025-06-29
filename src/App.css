@@ -795,3 +795,294 @@ body {
   border-color: #5a6f8a !important;
   color: #ffffff !important;
 }
+
+/* DatePicker styles */
+.ant-picker {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #ffffff !important;
+  width: 100% !important;
+}
+
+.ant-picker:hover {
+  border-color: transparent !important;
+}
+
+.ant-picker:focus,
+.ant-picker-focused {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.ant-picker-panel {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+}
+
+.ant-picker-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  padding: 8px 0 !important;
+}
+
+.ant-picker-header button {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-picker-header button:hover {
+  color: #1890ff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-header-view {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.ant-picker-content {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ant-picker-content table {
+  width: 100% !important;
+}
+
+.ant-picker-content th {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-weight: 500 !important;
+  padding: 8px 0 !important;
+}
+
+.ant-picker-cell {
+  color: #ffffff !important;
+  padding: 4px !important;
+}
+
+.ant-picker-cell:hover .ant-picker-cell-inner {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+}
+
+.ant-picker-cell-inner {
+  color: #ffffff !important;
+  border-radius: 6px !important;
+  transition: all 0.3s ease !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  text-align: center !important;
+}
+
+.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #3d516a !important;
+  color: #fff !important;
+}
+
+.ant-picker-cell-today .ant-picker-cell-inner {
+  border: 2px solid #3d516a !important;
+  color: #3d516a !important;
+  font-weight: 500 !important;
+}
+
+.ant-picker-cell-disabled {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.ant-picker-cell-disabled .ant-picker-cell-inner {
+  color: #7c8795 !important;
+  background: transparent !important;
+  opacity: 0.7 !important;
+}
+
+.ant-picker-year-panel,
+.ant-picker-month-panel,
+.ant-picker-decade-panel {
+  background: transparent !important;
+}
+
+.ant-picker-year-panel .ant-picker-cell,
+.ant-picker-month-panel .ant-picker-cell,
+.ant-picker-decade-panel .ant-picker-cell {
+  color: #ffffff !important;
+}
+
+.ant-picker-year-panel .ant-picker-cell:hover .ant-picker-cell-inner,
+.ant-picker-month-panel .ant-picker-cell:hover .ant-picker-cell-inner,
+.ant-picker-decade-panel .ant-picker-cell:hover .ant-picker-cell-inner {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-picker-year-panel .ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-month-panel .ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-decade-panel .ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #3d516a !important;
+  color: #fff !important;
+}
+
+/* Custom DatePicker popup theme đồng bộ site */
+.custom-calendar-popup,
+.custom-calendar-popup .ant-picker-panel,
+.custom-calendar-popup .ant-picker-date-panel,
+.custom-calendar-popup .ant-picker-body,
+.custom-calendar-popup .ant-picker-content,
+.custom-calendar-popup .ant-picker-footer,
+.custom-calendar-popup .ant-picker-panel-container {
+  background: #2c3c53 !important;
+  border-radius: 20px !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.custom-calendar-popup .ant-picker-footer {
+  background: #2c3c53 !important;
+  border-radius: 0 0 20px 20px !important;
+  margin-top: 0 !important;
+  padding-bottom: 8px !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+}
+.custom-calendar-popup .ant-picker-today-btn {
+  color: #fff !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+  margin: 0 auto !important;
+  display: block !important;
+  font-weight: 600 !important;
+}
+.custom-calendar-popup .ant-picker-today-btn:hover {
+  background: rgba(255,255,255,0.08) !important;
+  color: #3d516a !important;
+}
+
+.custom-calendar-popup .ant-picker-cell-inner {
+  color: #fff !important;
+  border-radius: 8px !important;
+  transition: all 0.2s;
+  font-size: 14px !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-calendar-popup .ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #3d516a !important;
+  color: #fff !important;
+  font-weight: 400 !important;
+}
+
+.custom-calendar-popup .ant-picker-cell-today .ant-picker-cell-inner {
+  border: 1.5px solid #3d516a !important;
+  color: #fff !important;
+  font-weight: 400 !important;
+}
+
+.custom-calendar-popup {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  right: auto !important;
+  margin: 0 !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18) !important;
+}
+
+.custom-calendar-popup .ant-picker-panel,
+.custom-calendar-popup .ant-picker-date-panel,
+.custom-calendar-popup .ant-picker-body,
+.custom-calendar-popup .ant-picker-content,
+.custom-calendar-popup .ant-picker-footer,
+.custom-calendar-popup .ant-picker-panel-container {
+  box-shadow: none !important;
+}
+
+/* Đảm bảo ô năm/thập kỷ được phủ kín nền khi chọn */
+.custom-calendar-popup .ant-picker-year-panel .ant-picker-cell,
+.custom-calendar-popup .ant-picker-decade-panel .ant-picker-cell {
+  width: 56px !important;
+  height: 40px !important;
+  padding: 0 !important;
+}
+
+.custom-calendar-popup .ant-picker-year-panel .ant-picker-cell-inner,
+.custom-calendar-popup .ant-picker-decade-panel .ant-picker-cell-inner {
+  width: 100% !important;
+  height: 100% !important;
+  line-height: 40px !important;
+  font-size: 15px !important;
+  border-radius: 8px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.custom-calendar-popup .ant-picker-year-panel .ant-picker-cell-selected .ant-picker-cell-inner,
+.custom-calendar-popup .ant-picker-decade-panel .ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #3d516a !important;
+  color: #fff !important;
+}
+
+.custom-calendar-popup .ant-picker-month-panel .ant-picker-cell {
+  width: 56px !important;
+  height: 40px !important;
+  padding: 0 !important;
+}
+
+.custom-calendar-popup .ant-picker-month-panel .ant-picker-cell-inner {
+  width: 100% !important;
+  height: 100% !important;
+  line-height: 40px !important;
+  font-size: 15px !important;
+  border-radius: 8px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.custom-calendar-popup .ant-picker-month-panel .ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #3d516a !important;
+  color: #fff !important;
+}
+
+/* Checkbox tròn có tick */
+.custom-circle-checkbox .ant-checkbox-inner {
+  border-radius: 50% !important;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #b0b8c1 !important;
+  background: #2c3c53 !important;
+  transition: border-color 0.2s;
+  position: relative;
+}
+.custom-circle-checkbox .ant-checkbox-inner:after {
+  display: none !important;
+}
+.custom-circle-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background: #3d516a !important;
+  border-color: #3d516a !important;
+}
+.custom-circle-checkbox .ant-checkbox-checked .ant-checkbox-inner::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background: none;
+  mask: url('data:image/svg+xml;utf8,<svg fill="white" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6.173 13.727a.75.75 0 0 1-1.06 0l-3.39-3.39a.75.75 0 1 1 1.06-1.06l2.86 2.86 6.36-6.36a.75.75 0 1 1 1.06 1.06l-6.89 6.89z"/></svg>') center/contain no-repeat;
+  background-color: #52c41a;
+  display: block;
+}

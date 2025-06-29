@@ -16,52 +16,46 @@ function MyHabitsPage() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ 
-        background: '#2c3c53', 
-        padding: '0 24px', 
-        boxShadow: '0 4px 20px rgba(0,0,0,0.1)', 
-        backdropFilter: 'blur(10px)'
-      }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
-          width: '100%' 
+      <Header style={{ background: 'transparent', padding: 0, boxShadow: 'none', border: 'none', marginBottom: 32, position: 'relative', zIndex: 10 }}>
+        <div style={{
+          width: '100%',
+          maxWidth: 1200,
+          margin: '32px auto 0 auto',
+          background: '#2c3c53',
+          borderRadius: 16,
+          padding: '16px 0',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
         }}>
-          <div className="header-content">
-            <div className="header-left">
-              <Button
-                type="text"
-                icon={<ArrowLeftOutlined />}
-                onClick={handleGoBack}
-                size="large"
-                style={{ 
-                  color: '#ffffff',
-                  background: '#2c3c53',
-                  border: 'none',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#3d516a';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#2c3c53';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              />
-            </div>
-            
-            <div className="date-navigator">
-              <div className="date-display">
-                <Title level={3} style={{ margin: 0, textAlign: 'center', color: '#ffffff' }}>
-                  
-                </Title>
-              </div>
-            </div>
-
-            <div className="header-right">
-              {/* Empty for spacing */}
-            </div>
+          <div style={{ flex: '0 0 48px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Button
+              type="text"
+              icon={<ArrowLeftOutlined />}
+              onClick={handleGoBack}
+              size="large"
+              style={{
+                color: '#b0b8c1',
+                background: 'transparent',
+                border: 'none',
+                fontSize: 20,
+                width: 40,
+                height: 40,
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
+          </div>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span style={{ color: '#fff', fontWeight: 700, fontSize: 20, textAlign: 'center' }}>
+              Danh sách thói quen
+            </span>
+          </div>
+          <div style={{ flex: '0 0 48px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            {/* Giữ layout cân đối */}
           </div>
         </div>
       </Header>

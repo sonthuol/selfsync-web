@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { Layout, Button, Modal, Typography, Empty, message, Radio, Card, Divider } from 'antd';
-import { PlusOutlined, LeftOutlined, RightOutlined, FireOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import React, { useState, useEffect, useRef } from 'react';
+import { Layout, Button, Modal, Typography, Empty, message, Radio, Card, Divider, DatePicker, Checkbox } from 'antd';
+import { PlusOutlined, LeftOutlined, RightOutlined, FireOutlined, UnorderedListOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import dayjs, { Dayjs } from 'dayjs';
+import 'dayjs/locale/vi';
 import HabitForm from '../components/HabitForm';
 import { useHabits } from '../hooks/useHabits';
 import type { Habit, HabitFormData } from '../types/habit';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
+
+dayjs.locale('vi');
 
 const HomePage: React.FC = () => {
   const {
@@ -23,6 +26,28 @@ const HomePage: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingHabit, setEditingHabit] = useState<Habit | undefined>();
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
+  const dateTriggerRef = useRef<HTMLDivElement>(null);
+
+  // Handle click outside to close calendar
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        calendarRef.current && !calendarRef.current.contains(target) &&
+        dateTriggerRef.current && !dateTriggerRef.current.contains(target)
+      ) {
+        setIsCalendarVisible(false);
+      }
+    };
+    if (isCalendarVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isCalendarVisible]);
 
   const handleCreateHabit = (values: HabitFormData) => {
     createHabit(values);
@@ -79,67 +104,113 @@ const HomePage: React.FC = () => {
     !habit.completedDays || !habit.completedDays.includes(selectedDateStr)
   );
 
+  const handleDateChange = (date: Dayjs | null) => {
+    if (date) {
+      setSelectedDate(date);
+      setIsCalendarVisible(false);
+    }
+  };
+
+  const handleDateClick = () => {
+    setIsCalendarVisible(!isCalendarVisible);
+  };
+
   return (
     <>
-      <Header style={{ background: '#2c3c53', padding: '0 24px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', backdropFilter: 'blur(10px)' }}>
-        <div className="header-content">
-          <div className="header-left">
-            {/* Button đã được chuyển thành FAB */}
-          </div>
-          
-          <div className="date-navigator">
+      <Header style={{ background: 'transparent', padding: 0, boxShadow: 'none', border: 'none', marginBottom: 32, position: 'relative', zIndex: 10 }}>
+        <div style={{
+          width: '100%',
+          maxWidth: 1200,
+          margin: '32px auto 0 auto',
+          background: '#2c3c53',
+          borderRadius: 16,
+          padding: '16px 0',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+        }}>
+          <div style={{ flex: '0 0 48px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Button
               type="text"
               icon={<LeftOutlined />}
               onClick={goToPreviousDay}
               size="large"
-              style={{ color: '#ffffff' }}
-            />
-            <div className="date-display">
-              <Title level={3} style={{ margin: 0, textAlign: 'center', color: '#ffffff' }}>
-                {dateDisplay}
-              </Title>
-              <Text style={{ fontSize: '16px', color: '#ffffff' }}>
-                {isToday ? 'Hôm nay' : dayName}
-              </Text>
-              {!isToday && (
-                <Button 
-                  onClick={goToToday}
-                  size="small"
-                  style={{ 
-                    marginTop: '8px',
-                    fontSize: '12px',
-                    height: '24px',
-                    padding: '0 8px',
-                    background: '#2c3c53',
-                    border: 'none',
-                    color: '#ffffff',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#3d516a';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#2c3c53';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  Hôm nay
-                </Button>
-              )}
-            </div>
-            <Button
-              type="text"
-              icon={<RightOutlined />}
-              onClick={goToNextDay}
-              size="large"
-              style={{ color: '#ffffff' }}
+              style={{
+                color: '#b0b8c1',
+                background: 'transparent',
+                border: 'none',
+                fontSize: 20,
+                width: 40,
+                height: 40,
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             />
           </div>
-
-          <div className="header-right">
-            {/* Empty for spacing */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div
+              ref={dateTriggerRef}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', position: 'relative' }}
+            >
+              {isToday ? (
+                <>
+                  <CalendarOutlined style={{ color: '#ffffff', fontSize: 20, marginRight: 8 }} />
+                  <span style={{ color: '#fff', fontWeight: 700, fontSize: 20, textAlign: 'center' }}>Hôm nay</span>
+                </>
+              ) : (
+                <span style={{ color: '#b0b8c1', fontWeight: 500, fontSize: 20, textAlign: 'center' }}>
+                  {selectedDate.format('DD/MM')}
+                </span>
+              )}
+              <DatePicker
+                value={selectedDate}
+                onChange={handleDateChange}
+                open={isCalendarVisible}
+                onOpenChange={setIsCalendarVisible}
+                inputReadOnly
+                allowClear={false}
+                variant="borderless"
+                disabledDate={(current) => current && current > dayjs().endOf('day')}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  opacity: 0,
+                  cursor: 'pointer',
+                  zIndex: 2
+                }}
+                classNames={{ popup: { root: 'custom-calendar-popup' } }}
+              />
+            </div>
+          </div>
+          <div style={{ flex: '0 0 48px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            {isToday ? (
+              <div style={{ width: 40, height: 40 }} />
+            ) : (
+              <Button
+                type="text"
+                icon={<RightOutlined />}
+                onClick={goToNextDay}
+                size="large"
+                style={{
+                  color: '#b0b8c1',
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: 20,
+                  width: 40,
+                  height: 40,
+                  padding: 0,
+                  margin: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              />
+            )}
           </div>
         </div>
       </Header>
@@ -210,18 +281,25 @@ const HomePage: React.FC = () => {
               <Empty
                 description="Tất cả thói quen đã hoàn thành!"
                 style={{ 
-                  background: 'rgba(255, 255, 255, 0.8)', 
-                  padding: '48px', 
+                  background: '#3d516a', 
+                  padding: '32px', 
                   borderRadius: '16px',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                  minHeight: '120px',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  color: '#fff'
                 }}
+                imageStyle={{ height: 48 }}
               />
             ) : (
               <div className="habits-list">
                 {incompleteHabits.map(habit => (
                   <Card key={habit.id} className="habit-item">
                     <div className="habit-item-content">
+                      <Checkbox
+                        checked={habit.completedDays?.includes(selectedDateStr)}
+                        onChange={() => handleToggleDay(habit.id, selectedDateStr)}
+                        className="custom-circle-checkbox"
+                      />
                       <div className="habit-info">
                         <div className="habit-title-description">
                           <Link 
@@ -251,10 +329,6 @@ const HomePage: React.FC = () => {
                             {getCurrentStreak(habit)}
                           </Text>
                         </div>
-                        <Radio
-                          checked={false}
-                          onChange={() => handleToggleDay(habit.id, selectedDateStr)}
-                        />
                       </div>
                     </div>
                   </Card>
@@ -265,57 +339,54 @@ const HomePage: React.FC = () => {
 
           {/* Danh sách thói quen đã hoàn thành */}
           {completedHabits.length > 0 && (
-            <>
-              <Divider />
-              <div className="habits-section">
-                <Title level={4} style={{ marginBottom: '16px', color: '#52c41a' }}>
-                  Thói quen đã hoàn thành ({completedHabits.length})
-                </Title>
-                
-                <div className="habits-list completed">
-                  {completedHabits.map(habit => (
-                    <Card key={habit.id} className="habit-item completed">
-                      <div className="habit-item-content">
-                        <div className="habit-info">
-                          <div className="habit-title-description">
-                            <Link 
-                              to={`/habit/${habit.id}`}
-                              style={{ 
-                                color: '#ffffff', 
-                                textDecoration: 'none',
-                                transition: 'all 0.3s ease'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.color = '#1890ff';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.color = '#ffffff';
-                              }}
-                            >
-                              <Title level={5} style={{ margin: 0 }}>
-                                {habit.name}
-                              </Title>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="habit-actions">
-                          <div className="habit-stats">
-                            <Text type="secondary">
-                              <FireOutlined style={{ color: '#ff4d4f', marginRight: '4px' }} />
-                              {getCurrentStreak(habit)}
-                            </Text>
-                          </div>
-                          <Radio
-                            checked={true}
-                            onChange={() => handleToggleDay(habit.id, selectedDateStr)}
-                          />
+            <div className="habits-section completed">
+              <Title level={5} style={{ color: '#fff', margin: '24px 0 12px 0' }}>
+                Thói quen đã hoàn thành ({completedHabits.length})
+              </Title>
+              <div className="habits-list">
+                {completedHabits.map(habit => (
+                  <Card key={habit.id} className="habit-item completed">
+                    <div className="habit-item-content">
+                      <Checkbox
+                        checked={true}
+                        disabled
+                        className="custom-circle-checkbox"
+                      />
+                      <div className="habit-info">
+                        <div className="habit-title-description">
+                          <Link 
+                            to={`/habit/${habit.id}`}
+                            style={{ 
+                              color: '#ffffff', 
+                              textDecoration: 'none',
+                              transition: 'all 0.3s ease'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.color = '#1890ff';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.color = '#ffffff';
+                            }}
+                          >
+                            <Title level={5} style={{ margin: 0 }}>
+                              {habit.name}
+                            </Title>
+                          </Link>
                         </div>
                       </div>
-                    </Card>
-                  ))}
-                </div>
+                      <div className="habit-actions">
+                        <div className="habit-stats">
+                          <Text type="secondary">
+                            <FireOutlined style={{ color: '#ff4d4f', marginRight: '4px' }} />
+                            {getCurrentStreak(habit)}
+                          </Text>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
               </div>
-            </>
+            </div>
           )}
 
           {/* Empty state khi không có thói quen nào */}
