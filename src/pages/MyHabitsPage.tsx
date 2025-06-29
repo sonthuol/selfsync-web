@@ -1,18 +1,63 @@
+import React, { useEffect, useState } from "react";
 import { Typography, Card, Empty, Button, Layout } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useHabits } from '../hooks/useHabits';
+import { useHabits, getHabits, createHabit, updateHabit, deleteHabit, completeDay, uncompleteDay } from '../hooks/useHabits';
 import { useNavigate, Link } from 'react-router-dom';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
-function MyHabitsPage() {
-  const { habits } = useHabits();
+const MyHabitsPage: React.FC = () => {
+  const [habits, setHabits] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchHabits();
+  }, []);
+
+  const fetchHabits = async () => {
+    setLoading(true);
+    const data = await getHabits();
+    setHabits(data);
+    setLoading(false);
+  };
 
   const handleGoBack = () => {
     navigate('/');
   };
+
+  // Ví dụ: thêm habit mới
+  const handleAddHabit = async (habit: any) => {
+    await createHabit(habit);
+    fetchHabits();
+  };
+
+  // Ví dụ: xóa habit
+  const handleDeleteHabit = async (id: number) => {
+    await deleteHabit(id);
+    fetchHabits();
+  };
+
+  // Ví dụ: cập nhật habit
+  const handleUpdateHabit = async (id: number, habit: any) => {
+    await updateHabit(id, habit);
+    fetchHabits();
+  };
+
+  // Ví dụ: hoàn thành 1 ngày
+  const handleCompleteDay = async (id: number, date: string) => {
+    await completeDay(id, date);
+    fetchHabits();
+  };
+
+  // Ví dụ: bỏ hoàn thành 1 ngày
+  const handleUncompleteDay = async (id: number, date: string) => {
+    await uncompleteDay(id, date);
+    fetchHabits();
+  };
+
+  if (loading) return <div>Đang tải...</div>;
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -117,6 +162,6 @@ function MyHabitsPage() {
       </Content>
     </Layout>
   );
-}
+};
 
 export default MyHabitsPage; 
