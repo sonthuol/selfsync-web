@@ -84,6 +84,8 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .date-navigator {
@@ -98,6 +100,10 @@ body {
   text-align: center;
   min-width: 120px;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .header-left,
@@ -176,6 +182,12 @@ body {
   gap: 8px;
 }
 
+.habit-title-description.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
 .habit-title-description .ant-typography {
   margin: 0;
 }
@@ -231,6 +243,12 @@ body {
   font-weight: 500;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
+}
+
+.ant-btn:focus,
+.ant-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .ant-btn-primary {
@@ -301,23 +319,40 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Modal styles */
+/* Modal styles for dark theme */
 .ant-modal-content {
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: #2c3c53 !important;
+  color: #ffffff !important;
+  border: 1px solid #3d516a !important;
+  border-radius: 12px !important;
 }
 
 .ant-modal-header {
-  border-radius: 16px 16px 0 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  background: rgba(248, 249, 250, 0.8);
+  background: #2c3c53 !important;
+  border-bottom: 1px solid #3d516a !important;
+  border-radius: 12px 12px 0 0 !important;
 }
 
 .ant-modal-title {
-  font-weight: 600;
-  color: #262626;
+  color: #ffffff !important;
+}
+
+.ant-modal-close {
+  color: #ffffff !important;
+  background: transparent !important;
+  border-radius: 4px !important;
+  transition: background-color 0.3s !important;
+}
+
+.ant-modal-close:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-modal-body {
+  background: #2c3c53 !important;
+  color: #ffffff !important;
+  padding-top: 20px !important;
 }
 
 /* Empty state styles */
@@ -535,7 +570,7 @@ body {
 
 /* Card body padding */
 .ant-card-body {
-  padding: 20px;
+  padding: 12px;
   background: #3d516a;
 }
 
@@ -563,6 +598,8 @@ body {
 
   .header-left {
     order: 1;
+    align-self: flex-start;
+    justify-self: flex-start;
   }
 
   .header-right {
@@ -632,7 +669,7 @@ body {
   height: 56px;
   border-radius: 50%;
   box-shadow: 0 4px 20px rgba(44, 60, 83, 0.3);
-  background: #2c3c53;
+  background: #2c3c53 !important;
   border: none;
   display: flex;
   align-items: center;
@@ -643,7 +680,7 @@ body {
 .fab-button:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 25px rgba(44, 60, 83, 0.4);
-  background: #1d2736;
+  background: #3d516a !important;
 }
 
 .fab-button .anticon {
@@ -700,4 +737,61 @@ body {
     flex-shrink: 0;
     display: block !important;
   }
+}
+
+/* Form styles for dark theme */
+.ant-form-item-label > label {
+  color: #ffffff !important;
+}
+
+.ant-input {
+  background: #3d516a !important;
+  border: 1px solid #4a5f7a !important;
+  color: #ffffff !important;
+}
+
+.ant-input:focus,
+.ant-input-focused {
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+.ant-input::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.ant-input-textarea {
+  background: #3d516a !important;
+  border: 1px solid #4a5f7a !important;
+  color: #ffffff !important;
+}
+
+.ant-input-textarea:focus,
+.ant-input-textarea-focused {
+  border-color: #1890ff !important;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2) !important;
+}
+
+/* Button styles for modal only */
+.ant-modal .ant-btn-primary {
+  background: #1890ff !important;
+  border-color: #1890ff !important;
+  color: #ffffff !important;
+}
+
+.ant-modal .ant-btn-primary:hover {
+  background: #40a9ff !important;
+  border-color: #40a9ff !important;
+}
+
+.ant-modal .ant-btn-default {
+  background: #3d516a !important;
+  border-color: #4a5f7a !important;
+  color: #ffffff !important;
+}
+
+.ant-modal .ant-btn-default:hover {
+  background: #4a5f7a !important;
+  border-color: #5a6f8a !important;
+  color: #ffffff !important;
 }
